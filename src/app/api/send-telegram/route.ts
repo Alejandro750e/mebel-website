@@ -61,7 +61,6 @@ const formatTelegramMessage = (data: TelegramMessage): string => {
   return message
 }
 
-// ✅ ЕДИНСТВЕННЫЙ ПРАВИЛЬНЫЙ ЭКСПОРТ
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json() as TelegramMessage
