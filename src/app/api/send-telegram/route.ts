@@ -1,5 +1,4 @@
-// pages/api/send-telegram.ts
-import type { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 
 interface TelegramMessage {
   name: string
@@ -41,7 +40,9 @@ const formatTelegramMessage = (data: TelegramMessage): string => {
     if (data.furnitureSubtype) {
       message += `🔧 <b>Конфигурация:</b> ${data.furnitureSubtype}\n`
     }
-    message += `📏 <b>Площадь:</b> ${data.area} м²\n`
+    if (data.area !== undefined) {
+      message += `📏 <b>Площадь:</b> ${data.area} м²\n`
+    }
     message += `🪵 <b>Материал:</b> ${data.material}\n`
     if (data.lighting) {
       message += `💡 <b>Подсветка:</b> Да\n`
@@ -60,43 +61,37 @@ const formatTelegramMessage = (data: TelegramMessage): string => {
   return message
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
-  }
-
-  const { data } = req.body as { data: TelegramMessage }
-
-  const botToken = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.TELEGRAM_CHAT_ID
-
-  if (!botToken || !chatId) {
-    console.error('Missing Telegram env vars')
-    return res.status(500).json({ error: 'Server misconfigured' })
-  }
-
+// ✅ ЕДИНСТВЕННЫЙ ПРАВИЛЬНЫЙ ЭКСПОРТ
+export async function POST(request: NextRequest) {
   try {
-    const message = formatTelegramMessage(data)
+    const data = await request.json() as TelegramMessage
+
+    const botToken = process.env.TELEGRAM_BOT_TOKEN
+    const chatId = process.env.TELEGRAM_CHAT_ID
+
+    if (!botToken || !chatId) {
+      return NextResponse.json({ error: 'Missing env vars' }, { status: 500 })
+    }
+
+    const text = formatTelegramMessage(data)
+
     const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         chat_id: chatId,
-        text: message,
+        text,
         parse_mode: 'HTML',
         disable_web_page_preview: true,
       }),
     })
 
     if (!response.ok) {
-      const err = await response.text()
-      console.error('Telegram API error:', err)
-      return res.status(500).json({ error: 'Failed to send message' })
+      return NextResponse.json({ error: 'Telegram failed' }, { status: 500 })
     }
 
-    return res.status(200).json({ success: true })
+    return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error in send-telegram API:', error)
-    return res.status(500).json({ error: 'Internal server error' })
+    return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }
