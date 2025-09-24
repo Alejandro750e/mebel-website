@@ -4,8 +4,8 @@ import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 import WorkItem from './WorkItem'
 import { WorkItem as WorkItemType, BeforeAfterProject, ImageIndex } from './types'
 import { useMediaQuery } from 'react-responsive'
-import { sendTelegramMessage } from '@/utils/telegram'
 
+// Данные проектов и описаний остаются без изменений
 const beforeAfterProjects: BeforeAfterProject[] = [
   {
     name: "Проект A",
@@ -187,9 +187,6 @@ const wardrobeDetails = [
   }
 ]
 
-// ===========================
-// МАССИВ ДЛЯ ШКАФОВ — ОБНОВЛЁННЫЙ ПО ТЗ
-// ===========================
 const shelfDetails = [
   {
     id: 1,
@@ -237,9 +234,6 @@ const shelfDetails = [
   }
 ]
 
-// ===========================
-// МАССИВ ДЛЯ ПРИХОЖИХ — ОБНОВЛЁННЫЙ
-// ===========================
 const entranceDetails = [
   {
     id: 1,
@@ -259,9 +253,6 @@ const entranceDetails = [
   }
 ]
 
-// ===========================
-// МАССИВ ДЛЯ TV И ПК ЗОН
-// ===========================
 const tvZoneDetails = [
   {
     id: 1,
@@ -327,9 +318,6 @@ const tvZoneDetails = [
   }
 ]
 
-// ===========================
-// ОБНОВЛЁННЫЙ СПИСОК РАБОТ — ШКАФЫ ОБНОВЛЕНЫ НА 6 ПРОЕКТОВ
-// ===========================
 const works: WorkItemType[] = [
   {
     id: 1,
@@ -505,13 +493,14 @@ export default function Catalog() {
     if (!quickOrderPhone.trim()) {
       return
     }
+
     setIsSubmittingQuickOrder(true)
+
     try {
       let message = `Быстрый заказ: ${quickOrderKitchen.name}\n`
       if (quickOrderKitchen.price && quickOrderKitchen.price !== "Узнать стоимость") {
         message += `Цена: ${quickOrderKitchen.price}\n`
       }
-
       if (quickOrderKitchen.facades) {
         message += `Фасады: ${quickOrderKitchen.facades}\n`
         message += `Столешница: ${quickOrderKitchen.countertop || "не указана"}\n`
@@ -534,8 +523,14 @@ export default function Catalog() {
         type: 'calculator' as const
       }
 
-      const telegramSuccess = await sendTelegramMessage(telegramData)
-      if (telegramSuccess) {
+      // 🔒 Безопасная отправка через API-роут
+      const response = await fetch('/api/send-telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({  telegramData }),
+      })
+
+      if (response.ok) {
         console.log('Быстрый заказ успешно отправлен в Telegram')
         setShowQuickOrderSuccess(true)
         setTimeout(() => {
@@ -544,9 +539,11 @@ export default function Catalog() {
         }, 3000)
       } else {
         console.warn('Не удалось отправить быстрый заказ в Telegram')
+        alert('Ошибка отправки. Попробуйте позже.')
       }
     } catch (error) {
       console.error('Ошибка при отправке быстрого заказа:', error)
+      alert('Произошла ошибка. Проверьте соединение.')
     } finally {
       setIsSubmittingQuickOrder(false)
     }
@@ -585,14 +582,13 @@ export default function Catalog() {
           ))}
         </div>
 
-        {/* Основное модальное окно - z-40 */}
+        {/* Основное модальное окно */}
         {selectedWork && (
           <div
             className="fixed inset-0 z-40 flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            aria-describedby="modal-description"
             onKeyDown={handleModalKeyDown}
           >
             <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={closeModal}></div>
@@ -684,7 +680,7 @@ export default function Catalog() {
                     )}
                   </div>
 
-                  {/* БЛОК ОПИСАНИЙ И КНОПОК — ВСЕ РАЗДЕЛЫ */}
+                  {/* БЛОК ОПИСАНИЙ И КНОПОК */}
                   {(selectedWork.title === "Современные кухни" ||
                     selectedWork.title === "Шкафы" ||
                     selectedWork.title === "Шкафы-купе" ||
@@ -735,7 +731,6 @@ export default function Catalog() {
                             }
                           })()}
                         </h3>
-
                         <div className="space-y-2 sm:space-y-2.5">
                           {selectedWork.title === "Современные кухни" ? (
                             (() => {
@@ -1042,7 +1037,7 @@ export default function Catalog() {
           </div>
         )}
 
-        {/* Модальное окно для увеличенного изображения - z-50 */}
+        {/* Модальное окно для увеличенного изображения */}
         {zoomedImage && (
           <div 
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"

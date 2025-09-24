@@ -1,3 +1,6 @@
+// pages/api/send-telegram.ts
+import type { NextApiRequest, NextApiResponse } from 'next'
+
 interface TelegramMessage {
   name: string
   phone: string
@@ -11,45 +14,6 @@ interface TelegramMessage {
   drawers?: number
   lighting?: boolean
   type: 'contact' | 'calculator'
-}
-
-export const sendTelegramMessage = async (data: TelegramMessage): Promise<boolean> => {
-  try {
-    const botToken = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN
-    const chatId = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID
-
-    if (!botToken || !chatId) {
-      console.error('Telegram bot token or chat ID not configured')
-      return false
-    }
-
-    // Формируем сообщение
-    const message = formatTelegramMessage(data)
-    
-    // Отправляем сообщение через Telegram Bot API
-    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true,
-      }),
-    })
-
-    if (!response.ok) {
-      throw new Error(`Telegram API error: ${response.status}`)
-    }
-
-    const result = await response.json()
-    return result.ok === true
-  } catch (error) {
-    console.error('Error sending Telegram message:', error)
-    return false
-  }
 }
 
 const formatTelegramMessage = (data: TelegramMessage): string => {
@@ -74,18 +38,14 @@ const formatTelegramMessage = (data: TelegramMessage): string => {
   if (data.type === 'calculator') {
     message += `\n🧮 <b>РАСЧЕТ СТОИМОСТИ</b>\n`
     message += `📋 <b>Тип мебели:</b> ${data.furnitureType}\n`
-    
     if (data.furnitureSubtype) {
       message += `🔧 <b>Конфигурация:</b> ${data.furnitureSubtype}\n`
     }
-    
     message += `📏 <b>Площадь:</b> ${data.area} м²\n`
     message += `🪵 <b>Материал:</b> ${data.material}\n`
-    
     if (data.lighting) {
       message += `💡 <b>Подсветка:</b> Да\n`
     }
-    
     if (data.message) {
       message += `\n💬 <b>Комментарий:</b>\n${data.message}\n`
     }
@@ -97,14 +57,46 @@ const formatTelegramMessage = (data: TelegramMessage): string => {
   }
 
   message += `\n🌐 <b>Источник:</b> Сайт mebelman.ru`
-  
   return message
 }
 
-// Функция для проверки конфигурации Telegram
-export const checkTelegramConfig = (): boolean => {
-  const botToken = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN
-  const chatId = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID
-  
-  return !!(botToken && chatId)
-} 
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' })
+  }
+
+  const { data } = req.body as { data: TelegramMessage }
+
+  const botToken = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+
+  if (!botToken || !chatId) {
+    console.error('Missing Telegram env vars')
+    return res.status(500).json({ error: 'Server misconfigured' })
+  }
+
+  try {
+    const message = formatTelegramMessage(data)
+    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'HTML',
+        disable_web_page_preview: true,
+      }),
+    })
+
+    if (!response.ok) {
+      const err = await response.text()
+      console.error('Telegram API error:', err)
+      return res.status(500).json({ error: 'Failed to send message' })
+    }
+
+    return res.status(200).json({ success: true })
+  } catch (error) {
+    console.error('Error in send-telegram API:', error)
+    return res.status(500).json({ error: 'Internal server error' })
+  }
+}
