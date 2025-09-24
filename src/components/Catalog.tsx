@@ -527,7 +527,7 @@ export default function Catalog() {
       const response = await fetch('/api/send-telegram', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({  telegramData }),
+        body: JSON.stringify(telegramData),
       })
 
       if (response.ok) {
