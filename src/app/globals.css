@@ -1,0 +1,497 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-[#212B38] via-[#37465B] to-[#212B38] text-white;
+    background-attachment: fixed;
+    background-size: 200% 200%;
+    animation: gradient-shift 25s ease infinite;
+  }
+}
+
+@layer components {
+  /* Основные кнопки с анимацией в стиле палитры */
+  .btn-primary {
+    @apply bg-gradient-to-r from-[#23272F] via-[#3B4252] to-[#4F8EDC] text-white px-6 py-3 font-semibold transition-all duration-500 shadow-lg hover:shadow-xl transform hover:scale-105 border-0;
+    background-size: 200% 200%;
+    animation: palette-flow 3s ease infinite;
+  }
+  
+  .btn-primary:hover {
+    animation: palette-flow 1.5s ease infinite;
+    background-size: 300% 300%;
+    box-shadow: 0 0 30px rgba(79, 142, 220, 0.4);
+  }
+  
+  .btn-secondary {
+    @apply text-white px-6 py-3 font-semibold transition-all duration-300 shadow-md hover:shadow-lg border-0;
+    background: linear-gradient(45deg, #3B4252, #4F8EDC, #AEB6BF, #4F8EDC, #3B4252);
+    background-size: 400% 400%;
+    animation: button-glow 3s ease infinite;
+  }
+
+  .btn-secondary:hover {
+    animation: button-glow 1.5s ease infinite;
+    background-size: 400% 400%;
+    box-shadow: 0 0 30px rgba(79, 142, 220, 0.6);
+    transform: scale(1.05);
+  }
+
+  /* Акцентная кнопка с радужным эффектом палитры */
+  .btn-accent {
+    @apply bg-gradient-to-r from-[#23272F] via-[#4F8EDC] to-[#AEB6BF] text-white px-6 py-3 font-semibold transition-all duration-500 shadow-lg hover:shadow-xl transform hover:scale-105 border-0;
+    background-size: 200% 200%;
+    animation: rainbow-palette 4s ease infinite;
+  }
+  
+  .btn-accent:hover {
+    animation: rainbow-palette 2s ease infinite;
+    background-size: 300% 300%;
+    box-shadow: 0 0 30px rgba(79, 142, 220, 0.4);
+  }
+
+  /* Кнопка с золотым эффектом в стиле палитры */
+  .btn-gold {
+    @apply text-white px-6 py-3 font-semibold transition-all duration-500 shadow-lg hover:shadow-xl transform hover:scale-105 border-0;
+    background: linear-gradient(45deg, #23272F, #3B4252, #AEB6BF, #3B4252, #23272F);
+    background-size: 400% 400%;
+    animation: button-glow 3s ease infinite;
+  }
+  
+  .btn-gold:hover {
+    animation: button-glow 1.5s ease infinite;
+    background-size: 400% 400%;
+    box-shadow: 0 0 30px rgba(174, 182, 191, 0.6);
+    transform: scale(1.05);
+  }
+
+  /* Мобильные стили для кнопок */
+  @media (max-width: 640px) {
+    .btn-gold, .btn-secondary {
+      @apply text-sm py-3 px-4;
+      min-height: 44px; /* Минимальная высота для удобного нажатия на мобильных */
+    }
+  }
+
+  /* Принудительные анимации для кнопок */
+  .btn-gold {
+    background: linear-gradient(45deg, #23272F, #3B4252, #AEB6BF, #3B4252, #23272F) !important;
+    background-size: 400% 400% !important;
+    animation: button-glow 3s ease infinite !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  .btn-secondary {
+    background: linear-gradient(45deg, #3B4252, #4F8EDC, #AEB6BF, #4F8EDC, #3B4252) !important;
+    background-size: 400% 400% !important;
+    animation: button-glow 3s ease infinite !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  .btn-gold:hover, .btn-secondary:hover {
+    animation: button-glow 1.5s ease infinite !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 30px rgba(79, 142, 220, 0.6) !important;
+  }
+
+  /* Улучшенная читаемость текста на мобильных устройствах */
+  @media (max-width: 640px) {
+    #home h1 {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+    
+    #home p {
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  /* Специальные эффекты для браузерной версии Hero */
+  @media (min-width: 1024px) {
+    #home .bg-gradient-to-r {
+      background: linear-gradient(to right, 
+        rgba(33, 43, 56, 0.9) 0%, 
+        rgba(33, 43, 56, 0.7) 30%, 
+        rgba(33, 43, 56, 0.4) 60%, 
+        rgba(33, 43, 56, 0.1) 80%, 
+        transparent 100%
+      ) !important;
+    }
+  }
+
+  /* Мобильная версия модального окна для фотографий */
+  @media (max-width: 640px) {
+    /* Увеличиваем модальное окно на мобильных */
+    .fixed.inset-0.z-50 > div:last-child {
+      max-width: 95vw !important;
+      max-height: 95vh !important;
+      margin: 2.5vh auto !important;
+    }
+    
+    /* Убираем описание на мобильных */
+    .fixed.inset-0.z-50 p.text-white.leading-relaxed {
+      display: none !important;
+    }
+    
+    /* Увеличиваем размер фотографий */
+    .fixed.inset-0.z-50 .aspect-\[3\/2\] {
+      aspect-ratio: 4/3 !important;
+      margin-bottom: 1rem !important;
+    }
+    
+    /* Делаем фотографии на весь экран */
+    .fixed.inset-0.z-50 img {
+      object-fit: contain !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    
+    /* Уменьшаем отступы */
+    .fixed.inset-0.z-50 .p-6 {
+      padding: 1rem !important;
+    }
+    
+    /* Убираем кнопку на мобильных */
+    .fixed.inset-0.z-50 .mt-6.flex.gap-4 {
+      display: none !important;
+    }
+    
+    /* Уменьшаем заголовок */
+    .fixed.inset-0.z-50 h3 {
+      font-size: 1.25rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    
+    /* Уменьшаем категорию */
+    .fixed.inset-0.z-50 p.text-white:not(.leading-relaxed) {
+      font-size: 0.875rem !important;
+    }
+  }
+
+  /* Мобильная версия модального окна - простые селекторы */
+  @media (max-width: 640px) {
+    .modal-container {
+      padding: 0 !important;
+    }
+    
+    .modal-content {
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+    }
+    
+    .modal-inner {
+      padding: 0.5rem !important;
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    
+    .modal-image-container {
+      height: 80vh !important;
+      margin-bottom: 0.5rem !important;
+      flex: 1 !important;
+      min-height: 0 !important;
+    }
+    
+    .modal-image {
+      object-fit: contain !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    
+    .modal-title {
+      font-size: 1rem !important;
+      margin-bottom: 0.25rem !important;
+    }
+    
+    .modal-category {
+      font-size: 0.75rem !important;
+    }
+    
+    /* Скрываем описание и кнопку на мобильных */
+    .modal-description,
+    .modal-button {
+      display: none !important;
+    }
+    
+    /* Уменьшаем заголовок модального окна */
+    .modal-inner > div:first-child {
+      margin-bottom: 0.5rem !important;
+    }
+  }
+
+  /* Кнопка с неоновым эффектом палитры */
+  .btn-neon {
+    @apply bg-gradient-to-r from-[#23272F] via-[#3B4252] to-[#4F8EDC] text-white px-6 py-3 font-semibold transition-all duration-500 shadow-lg hover:shadow-xl transform hover:scale-105 border-0;
+    background-size: 200% 200%;
+    animation: neon-palette 3s ease infinite;
+    box-shadow: 0 0 20px rgba(79, 142, 220, 0.3);
+  }
+  
+  .btn-neon:hover {
+    animation: neon-palette 1.5s ease infinite;
+    background-size: 300% 300%;
+    box-shadow: 0 0 30px rgba(79, 142, 220, 0.6);
+  }
+
+  /* Синяя кнопка с неоновым эффектом */
+  .btn-neon-blue {
+    @apply bg-gradient-to-r from-[#1a2332] via-[#2d3748] to-[#4F8EDC] text-white px-6 py-3 font-semibold transition-all duration-500 shadow-lg hover:shadow-xl transform hover:scale-105 border-0;
+    background-size: 200% 200%;
+    animation: neon-palette 3s ease infinite;
+    box-shadow: 0 0 20px rgba(79, 142, 220, 0.3);
+  }
+  
+  .btn-neon-blue:hover {
+    animation: neon-palette 1.5s ease infinite;
+    background-size: 300% 300%;
+    box-shadow: 0 0 30px rgba(79, 142, 220, 0.6);
+  }
+  
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+  }
+
+  .gradient-bg {
+    @apply bg-gradient-to-br from-[#212B38] via-[#37465B] to-[#212B38];
+  }
+
+  .card-gradient {
+    @apply bg-[#37465B]/80 backdrop-blur-sm border border-[#4F8EDC]/20 shadow-xl rounded-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-[#AEB6BF] to-[#4F8EDC] bg-clip-text text-transparent;
+  }
+
+  /* Анимированный текст с переливанием как у кнопки btn-secondary */
+  .text-gradient-animated {
+    @apply bg-gradient-to-r from-[#3B4252] via-[#4F8EDC] to-[#AEB6BF] bg-clip-text text-transparent;
+    background-size: 200% 200%;
+    animation: palette-flow 3s ease infinite;
+  }
+
+  .hero-gradient {
+    @apply bg-gradient-to-br from-[#212B38] via-[#37465B] to-[#212B38];
+  }
+
+  /* Секции с разными градиентами палитры */
+  .section-about {
+    @apply bg-gradient-to-br from-[#37465B] via-[#212B38] to-[#37465B];
+  }
+
+  .section-catalog {
+    @apply bg-gradient-to-br from-[#212B38] via-[#37465B] to-[#212B38];
+  }
+
+  .section-calculator {
+    @apply bg-gradient-to-br from-[#37465B] via-[#212B38] to-[#37465B];
+  }
+
+  .section-contact {
+    @apply bg-gradient-to-br from-[#212B38] via-[#37465B] to-[#212B38];
+  }
+
+  /* Дополнительные анимации */
+  .hover-lift {
+    @apply transition-all duration-300 hover:transform hover:scale-105 hover:shadow-2xl;
+  }
+
+  .glow-effect {
+    @apply shadow-lg hover:shadow-[#4F8EDC]/25 transition-shadow duration-300;
+  }
+
+  .gradient-border {
+    @apply border border-transparent bg-gradient-to-r from-[#3B4252] to-[#4F8EDC] bg-clip-border;
+  }
+
+  /* Анимация вращающейся кухни */
+  .rotating-kitchen {
+    animation: rotate-kitchen 20s linear infinite;
+  }
+
+  /* 3D анимация куба */
+  .animate-3d-cube {
+    animation: rotate-3d-cube 15s linear infinite;
+    transform-style: preserve-3d;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  /* Вращающиеся кольца */
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin-reverse 15s linear infinite;
+  }
+
+  .floating-elements {
+    animation: float-elements 6s ease-in-out infinite;
+  }
+
+  .pulse-glow {
+    animation: pulse-glow-palette 3s ease-in-out infinite;
+  }
+}
+
+/* Кастомные анимации */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 142, 220, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(79, 142, 220, 0.6); }
+}
+
+@keyframes pulse-glow-palette {
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 142, 220, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(79, 142, 220, 0.6); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes rotate-kitchen {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+@keyframes rotate-3d-cube {
+  0% { 
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); 
+  }
+  16.66% { 
+    transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg); 
+  }
+  33.33% { 
+    transform: rotateX(0deg) rotateY(180deg) rotateZ(0deg); 
+  }
+  50% { 
+    transform: rotateX(0deg) rotateY(270deg) rotateZ(0deg); 
+  }
+  66.66% { 
+    transform: rotateX(90deg) rotateY(270deg) rotateZ(0deg); 
+  }
+  83.33% { 
+    transform: rotateX(180deg) rotateY(270deg) rotateZ(0deg); 
+  }
+  100% { 
+    transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); 
+  }
+}
+
+@keyframes spin-slow {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes float-elements {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Новые анимации для кнопок в стиле палитры */
+@keyframes palette-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes rainbow-palette {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gold-palette {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes button-glow {
+  0% { 
+    background-position: 0% 50%; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  50% { 
+    background-position: 100% 50%; 
+    box-shadow: 0 8px 25px rgba(79, 142, 220, 0.3);
+  }
+  100% { 
+    background-position: 0% 50%; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Тестовая анимация для проверки */
+@keyframes test-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes neon-palette {
+  0%, 100% { 
+    background-position: 0% 50%; 
+    box-shadow: 0 0 20px rgba(79, 142, 220, 0.3);
+  }
+  50% { 
+    background-position: 100% 50%; 
+    box-shadow: 0 0 30px rgba(79, 142, 220, 0.6);
+  }
+}
+
+@keyframes border-pulse-palette {
+  0%, 100% { border-color: #4F8EDC; }
+  50% { border-color: #AEB6BF; }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float-elements {
+  animation: float-elements 6s ease-in-out infinite;
+} 

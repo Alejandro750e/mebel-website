@@ -1,0 +1,21 @@
+{
+  "name": "Mebel MAN",
+  "short_name": "Mebel MAN",
+  "description": "Производство и установка кухонь, шкафов, гардеробных, комодов и прихожих",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#212B38",
+  "theme_color": "#4F8EDC",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
