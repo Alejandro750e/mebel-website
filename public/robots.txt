@@ -2,12 +2,12 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://mebelman.ru/sitemap.xml
+Sitemap: https://www.mebelman-nn.ru/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1
 
-# Disallow admin areas (if any)
+# Disallow admin areas
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
@@ -15,4 +15,4 @@ Disallow: /_next/
 # Allow important files
 Allow: /favicon.ico
 Allow: /sitemap.xml
-Allow: /robots.txt 
+Allow: /robots.txt
