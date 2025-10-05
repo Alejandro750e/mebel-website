@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { sendTelegramMessage } from '@/utils/telegram'
 import { Ruler, Truck, MessageCircle, Clock, Shield, Star } from 'lucide-react'
 
 interface RequestForm {
@@ -93,7 +92,6 @@ export default function Calculator() {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
-    // Валидация площади (только для типов мебели, где нужна площадь)
     if (form.furnitureType !== 'chest') {
       const areaValue = typeof form.area === 'string' ? parseFloat(form.area) : form.area
       if (!form.area || areaValue <= 0) {
@@ -103,14 +101,12 @@ export default function Calculator() {
       }
     }
 
-    // Валидация имени
     if (!form.name.trim()) {
       newErrors.name = 'Пожалуйста, укажите ваше имя'
     } else if (form.name.trim().length < 2) {
       newErrors.name = 'Имя должно содержать минимум 2 символа'
     }
 
-    // Валидация телефона
     const phoneRegex = /^(\+7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/
     if (!form.phone.trim()) {
       newErrors.phone = 'Пожалуйста, укажите номер телефона'
@@ -132,26 +128,32 @@ export default function Calculator() {
     setIsSubmitting(true)
     
     try {
-      // Отправляем данные в Telegram
       const telegramData = {
         name: form.name,
         phone: form.phone,
         furnitureType: furnitureTypes.find(t => t.value === form.furnitureType)?.label || '',
-        furnitureSubtype: form.furnitureType === 'kitchen' ? kitchenSubtypes.find(s => s.value === form.furnitureSubtype)?.label : undefined,
-        area: form.furnitureType !== 'chest' ? (typeof form.area === 'string' ? parseFloat(form.area) : form.area) : undefined,
+        furnitureSubtype: form.furnitureType === 'kitchen' 
+          ? kitchenSubtypes.find(s => s.value === form.furnitureSubtype)?.label 
+          : undefined,
+        area: form.furnitureType !== 'chest' 
+          ? (typeof form.area === 'string' ? parseFloat(form.area) : form.area) 
+          : undefined,
         material: materials.find(m => m.value === form.material)?.label || '',
         lighting: form.lighting,
         message: form.message,
         type: 'calculator' as const
       }
 
-      const telegramSuccess = await sendTelegramMessage(telegramData)
-      
-      if (telegramSuccess) {
+      // 🔒 Безопасная отправка через API-роут
+      const response = await fetch('/api/send-telegram', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(telegramData),
+      })
+
+      if (response.ok) {
         console.log('Заявка успешно отправлена в Telegram')
         setShowSuccess(true)
-        
-        // Очищаем форму после успешной отправки
         setForm({
           furnitureType: 'kitchen',
           furnitureSubtype: 'straight',
@@ -162,16 +164,14 @@ export default function Calculator() {
           phone: '',
           message: '',
         })
-        
-        // Скрываем успех через 5 секунд
-        setTimeout(() => {
-          setShowSuccess(false)
-        }, 5000)
+        setTimeout(() => setShowSuccess(false), 5000)
       } else {
         console.warn('Не удалось отправить заявку в Telegram')
+        alert('Ошибка отправки. Попробуйте позже.')
       }
     } catch (error) {
       console.error('Ошибка при отправке заявки:', error)
+      alert('Произошла ошибка. Проверьте соединение.')
     } finally {
       setIsSubmitting(false)
     }
@@ -179,8 +179,6 @@ export default function Calculator() {
 
   const handleInputChange = (field: keyof RequestForm, value: string | number | boolean) => {
     setForm(prev => ({ ...prev, [field]: value }))
-    
-    // Очищаем ошибку при вводе
     if (errors[field as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [field]: undefined }))
     }
@@ -228,7 +226,6 @@ export default function Calculator() {
                 </select>
               </div>
 
-              {/* Подтип для кухни */}
               {form.furnitureType === 'kitchen' && (
                 <div>
                   <label className="block text-xs sm:text-sm font-medium text-white mb-1 sm:mb-2">
@@ -265,10 +262,9 @@ export default function Calculator() {
                         : 'border-[#4F8EDC]/30 focus:border-[#4F8EDC]'
                     }`}
                     aria-label="Введите площадь помещения"
-                    aria-describedby={errors.area ? 'area-error' : undefined}
                   />
                   {errors.area && (
-                    <p id="area-error" className="text-red-400 text-xs sm:text-sm mt-1">
+                    <p className="text-red-400 text-xs sm:text-sm mt-1">
                       {errors.area}
                     </p>
                   )}
@@ -337,10 +333,9 @@ export default function Calculator() {
                         : 'border-gray-300 focus:border-blue-500'
                     }`}
                     aria-label="Введите ваше имя"
-                    aria-describedby={errors.name ? 'name-error' : undefined}
                   />
                   {errors.name && (
-                    <p id="name-error" className="text-red-400 text-xs sm:text-sm mt-1">
+                    <p className="text-red-400 text-xs sm:text-sm mt-1">
                       {errors.name}
                     </p>
                   )}
@@ -360,10 +355,9 @@ export default function Calculator() {
                         : 'border-gray-300 focus:border-blue-500'
                     }`}
                     aria-label="Введите номер телефона"
-                    aria-describedby={errors.phone ? 'phone-error' : undefined}
                   />
                   {errors.phone && (
-                    <p id="phone-error" className="text-red-400 text-xs sm:text-sm mt-1">
+                    <p className="text-red-400 text-xs sm:text-sm mt-1">
                       {errors.phone}
                     </p>
                   )}
@@ -438,4 +432,4 @@ export default function Calculator() {
       </div>
     </section>
   )
-} 
+}
