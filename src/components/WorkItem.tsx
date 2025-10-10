@@ -1,6 +1,7 @@
 'use client'
 import { memo } from 'react'
 import { WorkItem as WorkItemType } from './types'
+import ImageWithFallback from './ImageWithFallback';
 
 const WorkItem = memo(({ work, onOpen }: { work: WorkItemType; onOpen: (work: WorkItemType) => void }) => (
   <div
@@ -18,7 +19,7 @@ const WorkItem = memo(({ work, onOpen }: { work: WorkItemType; onOpen: (work: Wo
   >
     <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 aspect-square md:aspect-[4/3] border border-blue-200/50 shadow-lg">
       {work.category === "До/После" ? (
-        <img
+        <ImageWithFallback
           src="/T.jpg"
           alt={work.title}
           className="w-full h-full object-cover"
@@ -26,7 +27,7 @@ const WorkItem = memo(({ work, onOpen }: { work: WorkItemType; onOpen: (work: Wo
           decoding="async"
         />
       ) : work.images[0] && work.images[0] !== "/api/placeholder/600/400" ? (
-        <img
+        <ImageWithFallback
           src={work.images[0]}
           alt={work.title}
           className="w-full h-full object-cover"

@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 import WorkItem from './WorkItem'
 import { WorkItem as WorkItemType, BeforeAfterProject, ImageIndex } from './types'
 import { useMediaQuery } from 'react-responsive'
+import ImageWithFallback from './ImageWithFallback';
 
 // Данные проектов и описаний остаются без изменений
 const beforeAfterProjects: BeforeAfterProject[] = [
@@ -611,7 +612,7 @@ export default function Catalog() {
                           className="w-full h-full flex items-center justify-center cursor-pointer relative"
                           onClick={() => openZoomedImage(selectedWork.images[currentImageIndex])}
                         >
-                          <img
+                          <ImageWithFallback
                             src={selectedWork.images[currentImageIndex]}
                             alt={`${selectedWork.title} - фото ${currentImageIndex + 1}`}
                             className="w-full h-full object-contain"
@@ -1051,7 +1052,7 @@ export default function Catalog() {
               >
                 <X size={32} />
               </button>
-              <img
+              <ImageWithFallback
                 src={zoomedImage}
                 alt="Увеличенное изображение"
                 className="max-w-full max-h-[90vh] object-contain rounded-lg"
