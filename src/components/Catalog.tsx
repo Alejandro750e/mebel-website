@@ -160,7 +160,7 @@ const wardrobeDetails = [
     doors: "Premial система Classic",
     filling: "Лдсп Каньон песчаный",
     hardware: "Шариковые направляющие Gtv с доводчиком",
-    price: "140 тыс. Руб."
+    price: "140 000 ₽"
   },
   {
     id: 2,
@@ -168,7 +168,7 @@ const wardrobeDetails = [
     body: "ЛДСП Тэффи",
     doors: "Premial система Classic",
     hardware: "Направляющие unihopper скрытого монтажа",
-    price: "210 тыс. Руб."
+    price: "210 000 ₽"
   },
   {
     id: 3,
@@ -177,14 +177,14 @@ const wardrobeDetails = [
     doors: "Premial система Classic",
     filling: "Лдсп Каньон песчаный",
     hardware: "Шариковые направляющие Gtv с доводчиком",
-    price: "140 тыс. Руб."
+    price: "140 000 ₽"
   },
   {
     id: 4,
     name: "Шкаф-купе №4",
     doors: "Premial Узкорамочная система Elephant, профиль-ручка Fish",
     filling: "Зеркало серебро",
-    price: "46 тыс. Руб."
+    price: "46 000 ₽"
   }
 ]
 
@@ -430,11 +430,11 @@ export default function Catalog() {
   const filteredWorks = selectedCategory === "Все"
     ? works
     : works.filter(work => {
-        if (selectedCategory === "Прихожая") return work.category === "Прихожие"
-        if (selectedCategory === "TV-зоны") return work.category === "TV-зоны"
-        if (selectedCategory === "До/После") return work.category === "До/После"
-        return work.category === selectedCategory
-      })
+      if (selectedCategory === "Прихожая") return work.category === "Прихожие"
+      if (selectedCategory === "TV-зоны") return work.category === "TV-зоны"
+      if (selectedCategory === "До/После") return work.category === "До/После"
+      return work.category === selectedCategory
+    })
 
   const nextImage = useCallback(() => {
     if (selectedWork) {
@@ -569,7 +569,7 @@ export default function Catalog() {
               className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm ${selectedCategory === category
                 ? 'bg-gradient-to-r from-[#4F8EDC] to-[#AEB6BF] text-white shadow-lg'
                 : 'bg-[#37465B]/80 text-white hover:bg-[#4F8EDC]/20 border border-[#4F8EDC]/30 shadow-md'
-              }`}
+                }`}
               aria-label={`Показать работы в категории ${category}`}
               aria-pressed={selectedCategory === category}
             >
@@ -608,7 +608,7 @@ export default function Catalog() {
                   <div className={`relative ${isMobile ? 'w-full h-64' : 'flex-1'} bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200/50 overflow-hidden`}>
                     {selectedWork.images.length > 0 ? (
                       <>
-                        <div 
+                        <div
                           className="w-full h-full flex items-center justify-center cursor-pointer relative"
                           onClick={() => openZoomedImage(selectedWork.images[currentImageIndex])}
                         >
@@ -687,246 +687,246 @@ export default function Catalog() {
                     selectedWork.title === "Шкафы-купе" ||
                     selectedWork.title === "TV и ПК зоны" ||
                     selectedWork.title === "Прихожие") && (
-                    <div className={`${isMobile ? 'w-full' : 'w-96'} bg-gradient-to-br from-[#212B38] to-[#37465B] rounded-xl border border-[#4F8EDC]/20 p-4 sm:p-5 text-white flex flex-col`}>
-                      <div className="flex-1">
-                        <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-[#4F8EDC]">
-                          {(() => {
-                            if (selectedWork.title === "Современные кухни") {
-                              if (currentImageIndex < 3) return "Кухня №1"
-                              else if (currentImageIndex < 5) return "Кухня №2"
-                              else if (currentImageIndex < 7) return "Кухня №3"
-                              else if (currentImageIndex < 9) return "Кухня №4"
-                              else if (currentImageIndex < 11) return "Кухня №5"
-                              else if (currentImageIndex < 13) return "Кухня №6"
-                              else if (currentImageIndex < 15) return "Кухня №7"
-                              else if (currentImageIndex < 16) return "Кухня №8"
-                              else if (currentImageIndex < 17) return "Кухня №9"
-                              else return "Кухня"
-                            } else if (selectedWork.title === "Шкафы") {
-                              if (currentImageIndex < 4) return "Шкаф №1"
-                              else if (currentImageIndex < 7) return "Шкаф №2"
-                              else if (currentImageIndex < 9) return "Шкаф №3"
-                              else if (currentImageIndex < 12) return "Шкаф №4"
-                              else if (currentImageIndex < 15) return "Шкаф №5"
-                              else if (currentImageIndex < 18) return "Шкаф №6"
-                              else return "Шкаф"
-                            } else if (selectedWork.title === "Шкафы-купе") {
-                              if (currentImageIndex < 3) return "Шкаф-купе №1"
-                              else if (currentImageIndex < 5) return "Шкаф-купе №2"
-                              else if (currentImageIndex < 6) return "Шкаф-купе №3"
-                              else if (currentImageIndex < 7) return "Шкаф-купе №4"
-                              else return "Шкаф-купе"
-                            } else if (selectedWork.title === "TV и ПК зоны") {
-                              if (currentImageIndex < 2) return "TV и ПК зона №1"
-                              else if (currentImageIndex < 4) return "TV и ПК зона №2"
-                              else if (currentImageIndex < 6) return "TV и ПК зона №3"
-                              else if (currentImageIndex < 7) return "TV и ПК зона №4"
-                              else if (currentImageIndex < 8) return "TV и ПК зона №5"
-                              else if (currentImageIndex < 9) return "TV и ПК зона №6"
-                              else if (currentImageIndex < 11) return "TV и ПК зона №7"
-                              else return "TV и ПК зона"
-                            } else if (selectedWork.title === "Прихожие") {
-                              if (currentImageIndex < 3) return "Прихожая №1"
-                              else if (currentImageIndex < 4) return "Прихожая №2"
-                              else return "Прихожая"
-                            }
-                          })()}
-                        </h3>
-                        <div className="space-y-2 sm:space-y-2.5">
-                          {selectedWork.title === "Современные кухни" ? (
-                            (() => {
-                              let kitchenIndex = 0;
-                              if (currentImageIndex < 3) kitchenIndex = 0;
-                              else if (currentImageIndex < 5) kitchenIndex = 1;
-                              else if (currentImageIndex < 7) kitchenIndex = 2;
-                              else if (currentImageIndex < 9) kitchenIndex = 3;
-                              else if (currentImageIndex < 11) kitchenIndex = 4;
-                              else if (currentImageIndex < 13) kitchenIndex = 5;
-                              else if (currentImageIndex < 15) kitchenIndex = 6;
-                              else if (currentImageIndex < 16) kitchenIndex = 7;
-                              else if (currentImageIndex < 17) kitchenIndex = 8;
-                              else kitchenIndex = 0;
-                              const kitchen = kitchenDetails[kitchenIndex];
-                              return (
-                                <>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.facades}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Столешница:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.countertop}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.hardware}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Направляющие:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.guides}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.body}</span>
-                                  </div>
-                                </>
-                              );
-                            })()
-                          ) : selectedWork.title === "Шкафы-купе" ? (
-                            (() => {
-                              let wardrobeIndex = 0;
-                              if (currentImageIndex < 3) wardrobeIndex = 0;
-                              else if (currentImageIndex < 5) wardrobeIndex = 1;
-                              else if (currentImageIndex < 6) wardrobeIndex = 2;
-                              else if (currentImageIndex < 7) wardrobeIndex = 3;
-                              else wardrobeIndex = 0;
-                              const wardrobe = wardrobeDetails[wardrobeIndex];
-                              return (
-                                <>
-                                  {wardrobeIndex !== 3 && (
+                      <div className={`${isMobile ? 'w-full' : 'w-96'} bg-gradient-to-br from-[#212B38] to-[#37465B] rounded-xl border border-[#4F8EDC]/20 p-4 sm:p-5 text-white flex flex-col`}>
+                        <div className="flex-1">
+                          <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-[#4F8EDC]">
+                            {(() => {
+                              if (selectedWork.title === "Современные кухни") {
+                                if (currentImageIndex < 3) return "Кухня №1"
+                                else if (currentImageIndex < 5) return "Кухня №2"
+                                else if (currentImageIndex < 7) return "Кухня №3"
+                                else if (currentImageIndex < 9) return "Кухня №4"
+                                else if (currentImageIndex < 11) return "Кухня №5"
+                                else if (currentImageIndex < 13) return "Кухня №6"
+                                else if (currentImageIndex < 15) return "Кухня №7"
+                                else if (currentImageIndex < 16) return "Кухня №8"
+                                else if (currentImageIndex < 17) return "Кухня №9"
+                                else return "Кухня"
+                              } else if (selectedWork.title === "Шкафы") {
+                                if (currentImageIndex < 4) return "Шкаф №1"
+                                else if (currentImageIndex < 7) return "Шкаф №2"
+                                else if (currentImageIndex < 9) return "Шкаф №3"
+                                else if (currentImageIndex < 12) return "Шкаф №4"
+                                else if (currentImageIndex < 15) return "Шкаф №5"
+                                else if (currentImageIndex < 18) return "Шкаф №6"
+                                else return "Шкаф"
+                              } else if (selectedWork.title === "Шкафы-купе") {
+                                if (currentImageIndex < 3) return "Шкаф-купе №1"
+                                else if (currentImageIndex < 5) return "Шкаф-купе №2"
+                                else if (currentImageIndex < 6) return "Шкаф-купе №3"
+                                else if (currentImageIndex < 7) return "Шкаф-купе №4"
+                                else return "Шкаф-купе"
+                              } else if (selectedWork.title === "TV и ПК зоны") {
+                                if (currentImageIndex < 2) return "TV и ПК зона №1"
+                                else if (currentImageIndex < 4) return "TV и ПК зона №2"
+                                else if (currentImageIndex < 6) return "TV и ПК зона №3"
+                                else if (currentImageIndex < 7) return "TV и ПК зона №4"
+                                else if (currentImageIndex < 8) return "TV и ПК зона №5"
+                                else if (currentImageIndex < 9) return "TV и ПК зона №6"
+                                else if (currentImageIndex < 11) return "TV и ПК зона №7"
+                                else return "TV и ПК зона"
+                              } else if (selectedWork.title === "Прихожие") {
+                                if (currentImageIndex < 3) return "Прихожая №1"
+                                else if (currentImageIndex < 4) return "Прихожая №2"
+                                else return "Прихожая"
+                              }
+                            })()}
+                          </h3>
+                          <div className="space-y-2 sm:space-y-2.5">
+                            {selectedWork.title === "Современные кухни" ? (
+                              (() => {
+                                let kitchenIndex = 0;
+                                if (currentImageIndex < 3) kitchenIndex = 0;
+                                else if (currentImageIndex < 5) kitchenIndex = 1;
+                                else if (currentImageIndex < 7) kitchenIndex = 2;
+                                else if (currentImageIndex < 9) kitchenIndex = 3;
+                                else if (currentImageIndex < 11) kitchenIndex = 4;
+                                else if (currentImageIndex < 13) kitchenIndex = 5;
+                                else if (currentImageIndex < 15) kitchenIndex = 6;
+                                else if (currentImageIndex < 16) kitchenIndex = 7;
+                                else if (currentImageIndex < 17) kitchenIndex = 8;
+                                else kitchenIndex = 0;
+                                const kitchen = kitchenDetails[kitchenIndex];
+                                return (
+                                  <>
                                     <div className="flex flex-col space-y-0.5">
-                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
-                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.body}</span>
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.facades}</span>
                                     </div>
-                                  )}
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Двери-Купе:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.doors}</span>
-                                  </div>
-                                  {wardrobe.filling && (
                                     <div className="flex flex-col space-y-0.5">
-                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Наполнение:</span>
-                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.filling}</span>
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Столешница:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.countertop}</span>
                                     </div>
-                                  )}
-                                  {wardrobeIndex !== 3 && (
                                     <div className="flex flex-col space-y-0.5">
                                       <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
-                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.hardware}</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.hardware}</span>
                                     </div>
-                                  )}
-                                </>
-                              );
-                            })()
-                          ) : selectedWork.title === "TV и ПК зоны" ? (
-                            (() => {
-                              let tvIndex = 0;
-                              if (currentImageIndex < 2) tvIndex = 0;
-                              else if (currentImageIndex < 4) tvIndex = 1;
-                              else if (currentImageIndex < 6) tvIndex = 2;
-                              else if (currentImageIndex < 7) tvIndex = 3;
-                              else if (currentImageIndex < 8) tvIndex = 4;
-                              else if (currentImageIndex < 9) tvIndex = 5;
-                              else if (currentImageIndex < 11) tvIndex = 6;
-                              else tvIndex = 0;
-                              const tv = tvZoneDetails[tvIndex];
-                              return (
-                                <>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.body}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.facades}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.hardware}</span>
-                                  </div>
-                                  {tv.countertop && (
                                     <div className="flex flex-col space-y-0.5">
-                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Столешница:</span>
-                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.countertop}</span>
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Направляющие:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.guides}</span>
                                     </div>
-                                  )}
-                                  {tv.additional && (
                                     <div className="flex flex-col space-y-0.5">
-                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Дополнительно:</span>
-                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.additional}</span>
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{kitchen.body}</span>
                                     </div>
-                                  )}
-                                </>
-                              );
-                            })()
-                          ) : selectedWork.title === "Шкафы" ? (
-                            (() => {
-                              let shelfIndex = 0;
-                              if (currentImageIndex < 4) shelfIndex = 0;
-                              else if (currentImageIndex < 7) shelfIndex = 1;
-                              else if (currentImageIndex < 9) shelfIndex = 2;
-                              else if (currentImageIndex < 12) shelfIndex = 3;
-                              else if (currentImageIndex < 15) shelfIndex = 4;
-                              else if (currentImageIndex < 18) shelfIndex = 5;
-                              else shelfIndex = 0;
-                              const shelf = shelfDetails[shelfIndex];
-                              if (shelf.description) {
-                                return (
-                                  <div className="text-center text-sm text-[#AEB6BF] mt-4 italic">
-                                    {shelf.description}
-                                  </div>
+                                  </>
                                 );
-                              }
-                              return (
-                                <>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.body}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.facades}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.hardware}</span>
-                                  </div>
-                                  {shelf.countertop && (
+                              })()
+                            ) : selectedWork.title === "Шкафы-купе" ? (
+                              (() => {
+                                let wardrobeIndex = 0;
+                                if (currentImageIndex < 3) wardrobeIndex = 0;
+                                else if (currentImageIndex < 5) wardrobeIndex = 1;
+                                else if (currentImageIndex < 6) wardrobeIndex = 2;
+                                else if (currentImageIndex < 7) wardrobeIndex = 3;
+                                else wardrobeIndex = 0;
+                                const wardrobe = wardrobeDetails[wardrobeIndex];
+                                return (
+                                  <>
+                                    {wardrobeIndex !== 3 && (
+                                      <div className="flex flex-col space-y-0.5">
+                                        <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
+                                        <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.body}</span>
+                                      </div>
+                                    )}
                                     <div className="flex flex-col space-y-0.5">
-                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Столешница:</span>
-                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.countertop}</span>
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Двери-Купе:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.doors}</span>
                                     </div>
-                                  )}
-                                  {shelf.additional && (
+                                    {wardrobe.filling && (
+                                      <div className="flex flex-col space-y-0.5">
+                                        <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Наполнение:</span>
+                                        <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.filling}</span>
+                                      </div>
+                                    )}
+                                    {wardrobeIndex !== 3 && (
+                                      <div className="flex flex-col space-y-0.5">
+                                        <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
+                                        <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{wardrobe.hardware}</span>
+                                      </div>
+                                    )}
+                                  </>
+                                );
+                              })()
+                            ) : selectedWork.title === "TV и ПК зоны" ? (
+                              (() => {
+                                let tvIndex = 0;
+                                if (currentImageIndex < 2) tvIndex = 0;
+                                else if (currentImageIndex < 4) tvIndex = 1;
+                                else if (currentImageIndex < 6) tvIndex = 2;
+                                else if (currentImageIndex < 7) tvIndex = 3;
+                                else if (currentImageIndex < 8) tvIndex = 4;
+                                else if (currentImageIndex < 9) tvIndex = 5;
+                                else if (currentImageIndex < 11) tvIndex = 6;
+                                else tvIndex = 0;
+                                const tv = tvZoneDetails[tvIndex];
+                                return (
+                                  <>
                                     <div className="flex flex-col space-y-0.5">
-                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Дополнительно:</span>
-                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.additional}</span>
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.body}</span>
                                     </div>
-                                  )}
-                                </>
-                              );
-                            })()
-                          ) : selectedWork.title === "Прихожие" ? (
-                            (() => {
-                              let entranceIndex = 0;
-                              if (currentImageIndex < 3) entranceIndex = 0;
-                              else if (currentImageIndex < 4) entranceIndex = 1;
-                              else entranceIndex = 0;
-                              const entrance = entranceDetails[entranceIndex];
-                              return (
-                                <>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{entrance.facades}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{entrance.hardware}</span>
-                                  </div>
-                                  <div className="flex flex-col space-y-0.5">
-                                    <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
-                                    <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{entrance.body}</span>
-                                  </div>
-                                </>
-                              );
-                            })()
-                          ) : (
-                            <div className="text-center text-sm text-[#AEB6BF] mt-4">
-                              Описание доступно для каждого проекта — выберите фото.
-                            </div>
-                          )}
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.facades}</span>
+                                    </div>
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.hardware}</span>
+                                    </div>
+                                    {tv.countertop && (
+                                      <div className="flex flex-col space-y-0.5">
+                                        <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Столешница:</span>
+                                        <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.countertop}</span>
+                                      </div>
+                                    )}
+                                    {tv.additional && (
+                                      <div className="flex flex-col space-y-0.5">
+                                        <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Дополнительно:</span>
+                                        <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{tv.additional}</span>
+                                      </div>
+                                    )}
+                                  </>
+                                );
+                              })()
+                            ) : selectedWork.title === "Шкафы" ? (
+                              (() => {
+                                let shelfIndex = 0;
+                                if (currentImageIndex < 4) shelfIndex = 0;
+                                else if (currentImageIndex < 7) shelfIndex = 1;
+                                else if (currentImageIndex < 9) shelfIndex = 2;
+                                else if (currentImageIndex < 12) shelfIndex = 3;
+                                else if (currentImageIndex < 15) shelfIndex = 4;
+                                else if (currentImageIndex < 18) shelfIndex = 5;
+                                else shelfIndex = 0;
+                                const shelf = shelfDetails[shelfIndex];
+                                if (shelf.description) {
+                                  return (
+                                    <div className="text-center text-sm text-[#AEB6BF] mt-4 italic">
+                                      {shelf.description}
+                                    </div>
+                                  );
+                                }
+                                return (
+                                  <>
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.body}</span>
+                                    </div>
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.facades}</span>
+                                    </div>
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.hardware}</span>
+                                    </div>
+                                    {shelf.countertop && (
+                                      <div className="flex flex-col space-y-0.5">
+                                        <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Столешница:</span>
+                                        <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.countertop}</span>
+                                      </div>
+                                    )}
+                                    {shelf.additional && (
+                                      <div className="flex flex-col space-y-0.5">
+                                        <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Дополнительно:</span>
+                                        <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{shelf.additional}</span>
+                                      </div>
+                                    )}
+                                  </>
+                                );
+                              })()
+                            ) : selectedWork.title === "Прихожие" ? (
+                              (() => {
+                                let entranceIndex = 0;
+                                if (currentImageIndex < 3) entranceIndex = 0;
+                                else if (currentImageIndex < 4) entranceIndex = 1;
+                                else entranceIndex = 0;
+                                const entrance = entranceDetails[entranceIndex];
+                                return (
+                                  <>
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фасады:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{entrance.facades}</span>
+                                    </div>
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Фурнитура:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{entrance.hardware}</span>
+                                    </div>
+                                    <div className="flex flex-col space-y-0.5">
+                                      <span className="text-xs sm:text-sm font-semibold text-[#4F8EDC]">Корпус:</span>
+                                      <span className="text-xs sm:text-sm text-[#AEB6BF] leading-relaxed">{entrance.body}</span>
+                                    </div>
+                                  </>
+                                );
+                              })()
+                            ) : (
+                              <div className="text-center text-sm text-[#AEB6BF] mt-4">
+                                Описание доступно для каждого проекта — выберите фото.
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      </div>
 
                       {/* КНОПКА БЫСТРОГО ЗАКАЗА */}
                       <div className="mt-4">
@@ -947,9 +947,14 @@ export default function Catalog() {
                             return (
                               <button
                                 onClick={() => openQuickOrderModal(kitchen)}
-                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform"
+                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform relative"
                               >
-                                {kitchen.price || "Цена по запросу"}
+                                <div className="flex flex-col items-center">
+                                  <span>{kitchen.price || "Цена по запросу"}</span>
+                                </div>
+                                {kitchen.price && kitchen.price !== "Цена по запросу" && (
+                                  <span className="absolute bottom-1 right-2 text-[7px] text-white italic opacity-70">*цена может отличаться</span>
+                                )}
                               </button>
                             );
                           })()
@@ -967,9 +972,14 @@ export default function Catalog() {
                             return (
                               <button
                                 onClick={() => openQuickOrderModal(shelf)}
-                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform"
+                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform relative"
                               >
-                                {shelf.price}
+                                <div className="flex flex-col items-center">
+                                  <span>{shelf.price}</span>
+                                </div>
+                                {shelf.price && shelf.price !== "Узнать стоимость" && (
+                                  <span className="absolute bottom-1 right-2 text-[7px] text-white italic opacity-70">*цена может отличаться</span>
+                                )}
                               </button>
                             );
                           })()
@@ -985,9 +995,14 @@ export default function Catalog() {
                             return (
                               <button
                                 onClick={() => openQuickOrderModal(wardrobe)}
-                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform"
+                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform relative"
                               >
-                                {wardrobe.price}
+                                <div className="flex flex-col items-center">
+                                  <span>{wardrobe.price}</span>
+                                </div>
+                                {wardrobe.price && wardrobe.price !== "Узнать стоимость" && (
+                                  <span className="absolute bottom-1 right-2 text-[7px] text-white italic opacity-70">*цена может отличаться</span>
+                                )}
                               </button>
                             );
                           })()
@@ -1006,9 +1021,14 @@ export default function Catalog() {
                             return (
                               <button
                                 onClick={() => openQuickOrderModal(tv)}
-                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform"
+                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform relative"
                               >
-                                {tv.price}
+                                <div className="flex flex-col items-center">
+                                  <span>{tv.price}</span>
+                                </div>
+                                {tv.price && tv.price !== "Узнать стоимость" && (
+                                  <span className="absolute bottom-1 right-2 text-[7px] text-white italic opacity-70">*цена может отличаться</span>
+                                )}
                               </button>
                             );
                           })()
@@ -1022,16 +1042,21 @@ export default function Catalog() {
                             return (
                               <button
                                 onClick={() => openQuickOrderModal(entrance)}
-                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform"
+                                className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 transform relative"
                               >
-                                {entrance.price}
+                                <div className="flex flex-col items-center">
+                                  <span>{entrance.price}</span>
+                                </div>
+                                {entrance.price && entrance.price !== "Узнать стоимость" && (
+                                  <span className="absolute bottom-1 right-2 text-[7px] text-white italic opacity-70">*цена может отличаться</span>
+                                )}
                               </button>
                             );
                           })()
                         ) : null}
                       </div>
-                    </div>
-                  )}
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
@@ -1040,7 +1065,7 @@ export default function Catalog() {
 
         {/* Модальное окно для увеличенного изображения */}
         {zoomedImage && (
-          <div 
+          <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
             onClick={closeZoomedImage}
           >
@@ -1116,8 +1141,8 @@ export default function Catalog() {
                     required
                   />
                 </div>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="w-full bg-gradient-to-r from-[#4F8EDC] to-[#08C6AB] hover:from-[#3B7BC7] hover:to-[#07B59A] text-white px-4 py-3 rounded-lg shadow-lg text-center font-semibold text-sm transition-all duration-300 hover:scale-105 transform disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isSubmittingQuickOrder}
                   aria-label="Отправить заявку"
