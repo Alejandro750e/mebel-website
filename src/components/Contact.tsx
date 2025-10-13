@@ -63,14 +63,20 @@ export default function Contact() {
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Контактная информация</h3>
               
               <div className="space-y-4 sm:space-y-6">
+                {/* Телефоны */}
                 <div className="flex items-start space-x-3 sm:space-x-4">
                   <Phone size={18} className="text-[#4F8EDC] mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="text-base sm:text-lg font-semibold text-white mb-1">Телефон</h4>
-                    <p className="text-sm sm:text-base text-white">+7 (996) 564-56-83</p>
+                    <p className="text-sm sm:text-base text-white">
+                      +7 (996) 564-56-83 Александр<br />
+                      +7 (961) 639-53-70 Николай<br />
+                      +7 (999) 120-90-93 Максим
+                    </p>
                   </div>
                 </div>
 
+                {/* Адрес */}
                 <div className="flex items-start space-x-3 sm:space-x-4">
                   <MapPin size={18} className="text-[#4F8EDC] mt-1 flex-shrink-0" />
                   <div>
@@ -79,6 +85,7 @@ export default function Contact() {
                   </div>
                 </div>
 
+                {/* Режим работы */}
                 <div className="flex items-start space-x-3 sm:space-x-4">
                   <Clock size={18} className="text-[#4F8EDC] mt-1 flex-shrink-0" />
                   <div>
