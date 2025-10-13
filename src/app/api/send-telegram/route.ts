@@ -26,38 +26,38 @@ const formatTelegramMessage = (data: TelegramMessage): string => {
   })
 
   let message = `🚨 <b>НОВАЯ ЗАЯВКА</b>\n\n`
-  message += `📅 <b>Дата:</b> ${timestamp}\n`
-  message += `👤 <b>Имя:</b> ${data.name}\n`
-  message += `📞 <b>Телефон:</b> ${data.phone}\n`
+  message += ` <b>Дата:</b> ${timestamp}\n`
+  message += ` <b>Имя:</b> ${data.name}\n`
+  message += ` <b>Телефон:</b> ${data.phone}\n`
 
   if (data.email) {
-    message += `📧 <b>Email:</b> ${data.email}\n`
+    message += ` <b>Email:</b> ${data.email}\n`
   }
 
   if (data.type === 'calculator') {
     message += `\n🧮 <b>РАСЧЕТ СТОИМОСТИ</b>\n`
-    message += `📋 <b>Тип мебели:</b> ${data.furnitureType}\n`
+    message += ` <b>Тип мебели:</b> ${data.furnitureType}\n`
     if (data.furnitureSubtype) {
-      message += `🔧 <b>Конфигурация:</b> ${data.furnitureSubtype}\n`
+      message += ` <b>Конфигурация:</b> ${data.furnitureSubtype}\n`
     }
     if (data.area !== undefined) {
-      message += `📏 <b>Площадь:</b> ${data.area} м²\n`
+      message += ` <b>Площадь:</b> ${data.area} м²\n`
     }
-    message += `🪵 <b>Материал:</b> ${data.material}\n`
+    message += ` <b>Материал:</b> ${data.material}\n`
     if (data.lighting) {
-      message += `💡 <b>Подсветка:</b> Да\n`
+      message += ` <b>Подсветка:</b> Да\n`
     }
     if (data.message) {
-      message += `\n💬 <b>Комментарий:</b>\n${data.message}\n`
+      message += `\n <b>Комментарий:</b>\n${data.message}\n`
     }
   } else {
-    message += `\n💬 <b>СООБЩЕНИЕ</b>\n`
+    message += `\n <b>СООБЩЕНИЕ</b>\n`
     if (data.message) {
       message += `${data.message}\n`
     }
   }
 
-  message += `\n🌐 <b>Источник:</b> Сайт mebelman.ru`
+  message += `\n🌐 <b>Источник:</b> Сайт`
   return message
 }
 
